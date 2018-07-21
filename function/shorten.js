@@ -29,7 +29,6 @@ function shorten(url, given_code) {
         if (!shortened) {
 
             if (given_code) {
-
                 shortened = given_code;
             } else {
                 for (let i = 0; i < 6; i++) {
@@ -48,3 +47,24 @@ function shorten(url, given_code) {
 
 
 }
+
+function unshorten(shortcode) {
+
+    if (shortcode) {
+
+        let url_data = fs.readFileSync('newfile.txt', "utf8").split('\n');
+        for (let data of url_data) {
+            if (data.split(',')[1] == shortcode) {
+                let short_url = data.split(',')[0];
+                return short_url;
+            }
+        }
+
+        return "https://www.hackkar.com";
+
+    }
+
+}
+
+module.exports.shorten = shorten;
+module.exports.unshorten = unshorten;
