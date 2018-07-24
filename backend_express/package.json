@@ -1,0 +1,19 @@
+{
+  "name": "backend_express",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "author": "Jibin K Mathew",
+  "private": false,
+  "scripts": {
+    "start": "node ./src/server.js",
+    "test": "jest || true"
+  },
+  "devDependencies": {
+    "jest": "^23.3.0",
+    "supertest": "^3.1.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
+  }
+}
