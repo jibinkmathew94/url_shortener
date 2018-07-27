@@ -1,5 +1,0 @@
-www.google.com,gog
-www.apple.com,app
-www.reddit.com,red
-www.machi.com,ma
-www.abc.com,ijX2PE

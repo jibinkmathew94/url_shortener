@@ -1,7 +1,8 @@
 const fs = require("fs");
 
 
-function shorten(url, given_code) {
+function shorten(url, given_code) { //function to generate shortcode
+                                    // returns a random alphanumeric of 6 characters if shortcode is given by the user.
 
     let str = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     let shortened = '';
@@ -9,9 +10,9 @@ function shorten(url, given_code) {
 
     if (url) {
 
-        if (fs.existsSync('newfile.txt')) {
+        if (fs.existsSync('url_shortcodes.txt')) {
 
-            url_data = fs.readFileSync('newfile.txt', "utf8").split('\n');
+            url_data = fs.readFileSync('url_shortcodes.txt', "utf8").split('\n'); // reading from the file
 
         }
 
@@ -19,7 +20,7 @@ function shorten(url, given_code) {
 
             for (let data of url_data) {
 
-                if (data.split(',')[0] == url) {
+                if (data.split(',')[0] == url) { // first coloumn is url and second coloumn is shortcode
                     shortened = data.split(',')[1];
                 }
             }
@@ -36,7 +37,7 @@ function shorten(url, given_code) {
                 }
             }
 
-            fs.appendFileSync('newfile.txt', url + ',' + shortened + '\n');
+            fs.appendFileSync('url_shortcodes.txt', url + ',' + shortened + '\n');
         }
 
         return shortened;
@@ -48,23 +49,29 @@ function shorten(url, given_code) {
 
 }
 
-function unshorten(shortcode) {
+function unshorten(shortcode) { // function to retrive url for given shortcode
 
-    if (shortcode) {
+    if (fs.existsSync('url_shortcodes.txt')) {
 
-        let url_data = fs.readFileSync('newfile.txt', "utf8").split('\n');
-        for (let data of url_data) {
-            if (data.split(',')[1] == shortcode) {
-                let short_url = data.split(',')[0];
-                return short_url;
+
+        if (shortcode) {
+
+            let url_data = fs.readFileSync('url_shortcodes.txt', "utf8").split('\n');
+            for (let data of url_data) {
+                if (data.split(',')[1] == shortcode) {
+                    let short_url = data.split(',')[0];
+                    return short_url;
+                }
             }
         }
 
-        return "https://www.hackkar.com";
-
     }
+    // if shortcode doesnt exist, then default value is returned.
+    
+    return "https://www.google.com";
 
 }
+
 
 module.exports.shorten = shorten;
 module.exports.unshorten = unshorten;
