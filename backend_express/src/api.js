@@ -9,7 +9,20 @@ app.use(express.urlencoded()); // to support URL-encoded bodies.
 app.use(express.json());
 
 
-app.get("/shortcodes/:shortcode", (req, res) => {
+app.post("/shortcodes", function(req, res) { //post method for returning short code for given urls
+
+  let shortened='';
+  
+  shortened=functions.shorten(req.body.url,req.body.shortcode);
+  
+  res.send(shortened);
+
+
+});
+
+
+
+app.get("/shortcodes/:shortcode", (req, res) => {   //get method for returning url for given shortcode
 
  
   let shortcode_data=functions.unshorten(req.params.shortcode);
@@ -17,5 +30,9 @@ app.get("/shortcodes/:shortcode", (req, res) => {
   res.send(shortcode_data);
 
 });
+
+
+
+
 
 module.exports = app;
