@@ -11,11 +11,11 @@ class App extends Component {
             inputUrl: '',
             inputShortCode: '',
         };
-
-        this.shortenUrl = this.shortenUrl.bind(this);
-        this.unshortenCode = this.unshortenCode.bind(this);
-        this.handleInputUrl = this.handleInputUrl.bind(this);
-        this.handleInputShortCode = this.handleInputShortCode.bind(this);
+ 
+        this.shortenUrl = this.shortenUrl.bind(this); // method to fetch short code by submitting the url (Post)
+        this.unshortenCode = this.unshortenCode.bind(this); // method to fetch url by submitting the shortcode (Get)
+        this.handleInputUrl = this.handleInputUrl.bind(this);// Having single source of truth
+        this.handleInputShortCode = this.handleInputShortCode.bind(this);//// Having single source of truth
 
     }
 
@@ -36,7 +36,7 @@ class App extends Component {
 
         event.preventDefault();
 
-        fetch('http://localhost:3000/shortcodes', {
+        fetch('http://localhost:3000/shortcodes', {  //fetch returns promises
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -47,8 +47,8 @@ class App extends Component {
             }).then(function(response) {
                 return response.text();
             })
-            .then(myJson => this.setState({
-                url: myJson
+            .then(jsonData => this.setState({
+                url: jsonData
             }))
             .catch(function(error) {
                 console.log(error);
@@ -58,14 +58,14 @@ class App extends Component {
 
     }
 
-    unshortenCode(event) {
+    unshortenCode(event) {                      //fetch returns promises
         event.preventDefault();
         fetch('http://localhost:3000/shortcodes/' + event.target.elements["app__shortcode-input"].value, )
             .then(function(response) {
                 return response.text();
             })
-            .then(myJson => this.setState({
-                shortened_url: myJson
+            .then(jsonData => this.setState({
+                shortened_url: jsonData
             }))
             .catch(function(error) {
                 console.log(error);
