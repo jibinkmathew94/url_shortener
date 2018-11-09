@@ -50,7 +50,7 @@ To install all dependencies
 
 
 
-##frontEnd
+## FrontEnd
 
 
 To install all dependencies
